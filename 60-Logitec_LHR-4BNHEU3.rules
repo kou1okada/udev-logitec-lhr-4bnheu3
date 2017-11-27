@@ -1,0 +1,32 @@
+# udev rules for Logitec LHR-4BNHEU3
+# Copyright 2017 Koichi OKADA. All rights reserved.
+# This script is distributed under the MIT license.
+
+#
+# Note: This script must be read before `/lib/udev/rules.d/60-persistent-storage.rules`.
+#
+
+#GOTO="Logitec_LHR-4BNHEU3_end" # for DEBUG
+ACTION=="remove", GOTO="Logitec_LHR-4BNHEU3_end"
+
+SUBSYSTEM!="block", GOTO="Logitec_LHR-4BNHEU3_end"
+KERNEL!="sd*", GOTO="Logitec_LHR-4BNHEU3_end"
+ATTRS{idVendor}=="0789", GOTO="Logitec_LHR-4BNHEU3_Logitec"
+GOTO="Logitec_LHR-4BNHEU3_end"
+LABEL="Logitec_LHR-4BNHEU3_Logitec"
+ATTRS{idProduct}=="0192", GOTO="Logitec_LHR-4BNHEU3_Logitec_4BNHEU3"
+GOTO="Logitec_LHR-4BNHEU3_end"
+LABEL="Logitec_LHR-4BNHEU3_Logitec_4BNHEU3"
+
+# for partitions import parent information
+ENV{DEVTYPE}=="partition", IMPORT{parent}="ID_*"
+
+# Logitec LHR-4BNHEU3
+KERNEL=="sd*", ENV{ID_SERIAL}=="?*",      GOTO="Logitec_LHR-4BNHEU3_SERIAL_set"
+IMPORT{builtin}="usb_id"
+IMPORT{program}="Logitec_LHR-4BNHEU3.sh $devnode"
+LABEL="Logitec_LHR-4BNHEU3_SERIAL_set"
+KERNEL=="sd*", ENV{DEVTYPE}=="disk",      SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_USB_SERIAL}"
+KERNEL=="sd*", ENV{DEVTYPE}=="partition", SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_USB_SERIAL}-part%n"
+
+LABEL="Logitec_LHR-4BNHEU3_end"

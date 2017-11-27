@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+(( 5 <= DEBUG )) && set -x
+
+aclocal && \
+automake --foreign --add-missing && \
+autoconf
