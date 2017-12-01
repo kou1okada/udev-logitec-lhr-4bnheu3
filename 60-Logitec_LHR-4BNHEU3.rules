@@ -26,7 +26,14 @@ KERNEL=="sd*", ENV{ID_SERIAL}=="?*",      GOTO="Logitec_LHR-4BNHEU3_SERIAL_set"
 IMPORT{builtin}="usb_id"
 IMPORT{program}="Logitec_LHR-4BNHEU3.sh $devnode"
 LABEL="Logitec_LHR-4BNHEU3_SERIAL_set"
+# same as default udev rule
+KERNEL=="sd*", ENV{DEVTYPE}=="disk",      SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_MODEL}_$env{ID_USB_SERIAL_SHORT}-$env{ID_USB_INSTANCE}"
+KERNEL=="sd*", ENV{DEVTYPE}=="partition", SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_MODEL}_$env{ID_USB_SERIAL_SHORT}-$env{ID_USB_INSTANCE}-part%n"
+# Persistent naming from the perspective of physical layout in the HDD cage.
 KERNEL=="sd*", ENV{DEVTYPE}=="disk",      SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_USB_SERIAL}"
 KERNEL=="sd*", ENV{DEVTYPE}=="partition", SYMLINK+="disk/by-id/$env{ID_BUS}-$env{ID_USB_SERIAL}-part%n"
+# Persistent naming from spec and identifier of HDD.
+KERNEL=="sd*", ENV{DEVTYPE}=="disk",      SYMLINK+="disk/by-id/ata-$env{ID_SERIAL}"
+KERNEL=="sd*", ENV{DEVTYPE}=="partition", SYMLINK+="disk/by-id/ata-$env{ID_SERIAL}-part%n"
 
 LABEL="Logitec_LHR-4BNHEU3_end"
