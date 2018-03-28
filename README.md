@@ -20,10 +20,18 @@ So, this project provides persistent device naming based on identifier of the HD
 
 ~~~
 $ ls -l /dev/disk/by-id
+ata-TOSHIBA_DT01ACA300_BBBBBBBBB -> ../../sdb
+ata-TOSHIBA_DT01ACA300_CCCCCCCCC -> ../../sdc
+ata-TOSHIBA_DT01ACA300_DDDDDDDDD -> ../../sdd
+ata-TOSHIBA_DT01ACA300_EEEEEEEEE -> ../../sde
 usb-Logitec_LHR-4BNHEU3_000000000000AAAA-0:0 -> ../../sdb
 usb-Logitec_LHR-4BNHEU3_000000000000AAAA-0:1 -> ../../sdc
 usb-Logitec_LHR-4BNHEU3_000000000000AAAA-0:2 -> ../../sdd
 usb-Logitec_LHR-4BNHEU3_000000000000AAAA-0:3 -> ../../sde
+usb-TOSHIBA_DT01ACA300_000000000000AAAA-0:0 -> ../../sdb
+usb-TOSHIBA_DT01ACA300_000000000000AAAA-0:1 -> ../../sdc
+usb-TOSHIBA_DT01ACA300_000000000000AAAA-0:2 -> ../../sdd
+usb-TOSHIBA_DT01ACA300_000000000000AAAA-0:3 -> ../../sde
 usb-TOSHIBA_DT01ACA300_BBBBBBBBB -> ../../sdb
 usb-TOSHIBA_DT01ACA300_CCCCCCCCC -> ../../sdc
 usb-TOSHIBA_DT01ACA300_DDDDDDDDD -> ../../sdd
