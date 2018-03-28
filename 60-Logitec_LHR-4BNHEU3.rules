@@ -14,9 +14,9 @@ KERNEL!="sd*", GOTO="Logitec_LHR-4BNHEU3_end"
 ATTRS{idVendor}=="0789", GOTO="Logitec_LHR-4BNHEU3_Logitec"
 GOTO="Logitec_LHR-4BNHEU3_end"
 LABEL="Logitec_LHR-4BNHEU3_Logitec"
-ATTRS{idProduct}=="0192", GOTO="Logitec_LHR-4BNHEU3_Logitec_4BNHEU3"
+ATTRS{idProduct}=="0192", GOTO="Logitec_LHR-4BNHEU3_Logitec_LHR-4BNHEU3"
 GOTO="Logitec_LHR-4BNHEU3_end"
-LABEL="Logitec_LHR-4BNHEU3_Logitec_4BNHEU3"
+LABEL="Logitec_LHR-4BNHEU3_Logitec_LHR-4BNHEU3"
 
 # for partitions import parent information
 ENV{DEVTYPE}=="partition", IMPORT{parent}="ID_*"
