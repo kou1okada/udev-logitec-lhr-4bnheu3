@@ -42,6 +42,25 @@ wwn-0xHHHHHHHHHHHHHHHH -> ../../sdd
 wwn-0xIIIIIIIIIIIIIIII -> ../../sde
 ~~~
 
+This makes to be able to refer HDD identity with `lsblk` as below:
+~~~
+$ # Result of `lsblk` by default udev rule
+$ lsblk -o name,model,serial,wwn,hctl,tran,subsystems,rev,vendor
+NAME   MODEL            SERIAL             WWN                HCTL       TRAN   SUBSYSTEMS          REV VENDOR
+sdb    DT01ACA300       000000000000AAAA                      8:0:0:0    usb    block:scsi:usb:pci 0125 TOSHIBA
+sdc    DT01ACA300       000000000000AAAA                      8:0:0:1    usb    block:scsi:usb:pci 0125 TOSHIBA
+sdd    DT01ACA300       000000000000AAAA                      8:0:0:2    usb    block:scsi:usb:pci 0125 TOSHIBA
+sde    DT01ACA300       000000000000AAAA                      8:0:0:3    usb    block:scsi:usb:pci 0125 TOSHIBA
+
+$ # Result of `lsblk` by the rule which is provided by this project
+$ lsblk -o name,model,serial,wwn,hctl,tran,subsystems,rev,vendor
+NAME   MODEL            SERIAL             WWN                HCTL       TRAN   SUBSYSTEMS          REV VENDOR
+sdb    DT01ACA300       BBBBBBBBB          0xFFFFFFFFFFFFFFFF 8:0:0:0    usb    block:scsi:usb:pci 0125 TOSHIBA
+sdc    DT01ACA300       CCCCCCCCC          0xGGGGGGGGGGGGGGGG 8:0:0:1    usb    block:scsi:usb:pci 0125 TOSHIBA
+sdd    DT01ACA300       DDDDDDDDD          0xHHHHHHHHHHHHHHHH 8:0:0:2    usb    block:scsi:usb:pci 0125 TOSHIBA
+sde    DT01ACA300       EEEEEEEEE          0xIIIIIIIIIIIIIIII 8:0:0:3    usb    block:scsi:usb:pci 0125 TOSHIBA
+~~~
+
 ## License
 
 This project is distributed under the MIT license.
