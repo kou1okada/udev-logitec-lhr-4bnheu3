@@ -4,36 +4,51 @@
 # This script is distributed under the MIT license.
 
 ID_USB_INSTANCE="$ID_INSTANCE"
-ID_USB_MODEL="Logitec_LHR-4BNHEU3"
-ID_USB_MODEL_ENC="Logitec\\x20LHR-4BNHEU3"
-ID_USB_REVISION="$ID_USB_REVISION"
-ID_USB_SERIAL="${ID_USB_MODEL}_${ID_SERIAL_SHORT}-${ID_INSTANCE}"
+ID_USB_MODEL="LHR-4BNHEU3"
+ID_USB_MODEL_ENC="LHR-4BNHEU3"
+ID_USB_MODEL_ID="$ID_MODEL_ID"
+ID_USB_REVISION="$ID_REVISION"
+ID_USB_VENDOR="Logitec"
+ID_USB_VENDOR_ENC="Logitec"
+ID_USB_VENDOR_ID="$ID_VENDOR_ID"
+ID_USB_SERIAL="${ID_USB_VENDOR}_${ID_USB_MODEL}_${ID_SERIAL_SHORT}-${ID_INSTANCE}"
 ID_USB_SERIAL_SHORT="$ID_SERIAL_SHORT"
 
-MODEL_NUMBER=`hdparm -I "$1" | grep "Model Number" | sed -e 's/.*: *//g'`
-ID_MODEL=`echo "$MODEL_NUMBER" | sed -e 's/ *$//g' -e 's/ /_/g'`
-ID_MODEL_ENC=`echo "$MODEL_NUMBER" | sed -e 's/ /\\x20/g'`
+ID_MODEL_ENC=`hdparm -I "$1" | grep "Model Number" | sed -e 's/.*: *//g' -e 's/ /\\\\x20/g'`
+ID_MODEL=`echo "$ID_MODEL_ENC" | sed -e 's/\(\\\\x20\)*$//g' -e 's/\(\\\\x20\)/_/g'`
+ID_MODEL_ID=
 ID_REVISION=`hdparm -I "$1" | grep "Firmware Revision" | sed -e 's/.*: *//g'`
 SERIAL_NUMBER=`hdparm -I "$1" | grep "Serial Number" | sed -e 's/.*: *//g'`
 WWN=`hdparm -I "$1" | grep "WWN" | sed -e 's/.*: */0x/g'`
 ID_SERIAL="${ID_MODEL}_${SERIAL_NUMBER}"
 ID_SERIAL_SHORT="$SERIAL_NUMBER"
+ID_VENDOR=
+ID_VENDOR_ENC=
+ID_VENDOR_ID=
 ID_WWN="$WWN"
 ID_WWN_WITH_EXTENSION="$WWN"
 
 echo "ID_USB_INSTANCE=$ID_USB_INSTANCE"
 echo "ID_USB_MODEL=$ID_USB_MODEL"
-echo "ID_USB_MODEL_ENC=$ID_USB_MODEL"
+echo "ID_USB_MODEL_ENC=$ID_USB_MODEL_ENC"
+echo "ID_USB_MODEL_ID=$ID_USB_MODEL_ID"
 echo "ID_USB_REVISION=$ID_USB_REVISION"
 echo "ID_USB_SERIAL=$ID_USB_SERIAL"
 echo "ID_USB_SERIAL_SHORT=$ID_USB_SERIAL_SHORT"
+echo "ID_USB_VENDOR=$ID_USB_VENDOR"
+echo "ID_USB_VENDOR_ENC=$ID_USB_VENDOR_ENC"
+echo "ID_USB_VENDOR_ID=$ID_USB_VENDOR_ID"
 
-echo "ID_USB_INSTANCE="
+echo "ID_INSTANCE=''"
 echo "ID_MODEL=$ID_MODEL"
-echo "ID_MODEL_ENC=$ID_MODEL"
+echo "ID_MODEL_ENC=$ID_MODEL_ENC"
+echo "ID_MODEL_ID='$ID_MODEL_ID'"
 echo "ID_REVISION=$ID_REVISION"
 echo "ID_SERIAL=$ID_SERIAL"
 echo "ID_SERIAL_SHORT=$ID_SERIAL_SHORT"
+echo "ID_VENDOR='$ID_VENDOR'"
+echo "ID_VENDOR_ENC='$ID_VENDOR_ENC'"
+echo "ID_VENDOR_ID='$ID_VENDOR_ID'"
 
 echo "ID_WWN=$ID_WWN"
 echo "ID_WWN_WITH_EXTENSION=$ID_WWN_WITH_EXTENSION"
